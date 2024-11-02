@@ -1,50 +1,61 @@
 const fs = require('fs')
+const chalk = require('chalk')
 
-const targetDir = __dirname + '/output'
-// console.log('targetDir', targetDir)
+// Helpers
+const setup = require('./transform/setup')
+const itemIdToFilename = require('./transform/item-id-to-filename')
+const itemToYamlFrontmatter = require('./transform/item-to-yaml')
+const toLowerDashed = require('./util/to-lower-dashed')
+
+// Configure
+const jsonFile = './data/alz_checklist.en.json'
+const targetDir = './output'
+
+/**
+ * Reset ./output
+ */
+console.log('')
+setup(targetDir)
+console.log('')
 
 
-fs.readFile('./data/alz_checklist.en.json', 'utf8', (err, data) => {
-  if (err) {
-    console.error(err)
-    return
+/**
+ * Read JSON
+ */
+
+console.log(chalk.bgYellow.black(' Reading JSON '))
+console.group()
+console.log('Read', jsonFile)
+console.groupEnd()
+console.log('')
+
+/**
+ * Write files
+ */
+console.log(chalk.bgYellow.black(' Writing Markdown '))
+console.group()
+
+const data      = fs.readFileSync(jsonFile, 'utf8')
+const checklist = JSON.parse(data)
+
+checklist.items.forEach(function (item) {
+  const category      = toLowerDashed(item.category)
+  const subcategory   = toLowerDashed(item.subcategory)
+  const itemDir       = `${targetDir}/${category}/${subcategory}`
+  const itemFilename  = `_${itemIdToFilename(item.id)}.md`
+
+  // Create folder if needed
+  if (!fs.existsSync(`${itemDir}`)) {
+    fs.mkdirSync(`${itemDir}`, { recursive: true })
+    console.log(chalk.cyanBright(`Created ${itemDir}/`))
   }
 
-  const result = parseJSON(data)
-  // console.log('result.items?', result.items)
-
- result.items.forEach((item) => {
-    const itemDir = `${_toLowerDashed(item.category)}/${_toLowerDashed(item.subcategory)}`
-    const itemFilename = `_${_itemIdToFilename(item.id)}.md`
-    console.log(`${itemDir}/${itemFilename}`)
-  })
+  // Write Markdown file
+  const itemFile = itemDir + '/' + itemFilename
+  const content = itemToYamlFrontmatter(item)
+  fs.writeFileSync(itemFile, content)
+  console.log(chalk.grey('Created', itemFile))
 })
+console.groupEnd()
 
-// ****************************************
 
-function parseJSON (jsonStr) {
-  const parsed = JSON.parse(jsonStr)
-  // console.log(Object.keys(parsed))
-  return parsed
-}
-
-function _toLowerDashed (str) {
-  return str.toLowerCase().replace(/\s+/g, '-')
-}
-
-function _createFolder (folderName) {
-  // const folderName = '/Users/joe/test';
-  try {
-    if (!fs.existsSync(folderName)) {
-      fs.mkdirSync(folderName)
-      return
-    }
-  } catch (err) {
-    throw new Error('Could not create folder', err)
-    console.error(err)
-  }
-}
-
-function _itemIdToFilename (itemId) {
-  return itemId.replace('.', '-').toLowerCase()
-}
