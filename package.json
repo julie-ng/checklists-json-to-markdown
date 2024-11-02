@@ -1,0 +1,14 @@
+{
+  "name": "review-checklists-json-to-markdown",
+  "version": "0.0.1",
+  "description": "Converts Azure Review Checklists from JSON to directory of markdown files",
+  "main": "transform.js",
+  "scripts": {
+    "dev": "nodemon ./transform.js"
+  },
+  "author": "Julie Ng",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
