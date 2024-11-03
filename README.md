@@ -41,15 +41,15 @@ The hardcoded JSON data from [github.com/Azure/review-checklists](https://github
 
 ```yaml
 ---
-category: Management
-subcategory: Data Protection
-text: Enable cross-region replication in Azure for BCDR with paired regions.
-waf: Reliability
-guid: 7ea02e1c-7166-45a3-bdf5-098891367fcb
-id: F02.01
-severity: Medium
-link: https://learn.microsoft.com/azure/reliability/cross-region-replication-azure
-training: https://learn.microsoft.com/training/modules/provide-disaster-recovery-replicate-storage-data/
+category: "Management"
+subcategory: "Data Protection"
+text: "Enable cross-region replication in Azure for BCDR with paired regions."
+waf: "Reliability"
+guid: "7ea02e1c-7166-45a3-bdf5-098891367fcb"
+id: "F02.01"
+severity: "Medium"
+link: "https://learn.microsoft.com/azure/reliability/cross-region-replication-azure"
+training: "https://learn.microsoft.com/training/modules/provide-disaster-recovery-replicate-storage-data/"
 ---
 ```
 

@@ -9,7 +9,7 @@ module.exports = function (item) {
 
   content += '---'+ '\n'
   for (const k in item) {
-    content += `${k}: ${item[k]}` + '\n'
+    content += `${k}: "${item[k]}"` + '\n'
   }
   content += '---'+ '\n'
 
