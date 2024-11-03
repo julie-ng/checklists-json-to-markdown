@@ -8,9 +8,6 @@ const chalk = require('chalk')
  * @param {String} targetDir
  */
 module.exports = function (targetDir) {
-  console.log(chalk.bgYellow.black(' Setup '))
-  console.group()
-
   if (fs.existsSync(targetDir)) {
     try {
       const opts = {
@@ -35,6 +32,4 @@ module.exports = function (targetDir) {
     fs.mkdirSync(targetDir)
     console.log(chalk.green('Created'), targetDir)
   }
-
-  console.groupEnd()
 }

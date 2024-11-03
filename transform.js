@@ -1,61 +1,40 @@
-const fs = require('fs')
+const fs    = require('fs')
 const chalk = require('chalk')
 
-// Helpers
-const setup = require('./transform/setup')
-const itemIdToFilename = require('./transform/item-id-to-filename')
-const itemToYamlFrontmatter = require('./transform/item-to-frontmatter')
-const toLowerDashed = require('./util/to-lower-dashed')
+const steps        = require('./steps')
+const transformers = require('./transformers')
+const util         = require('./util')
 
 // Configure
 const jsonFile = './data/alz_checklist.en.json'
 const targetDir = './output'
 
+// Global Vars
+let checklist = {}
+
 /**
  * Reset ./output
  */
-console.log('')
-setup(targetDir)
-console.log('')
+util.log('Setup', () => {
+  steps.setup(targetDir)
+})
 
 
 /**
  * Read JSON
  */
-
-console.log(chalk.bgYellow.black(' Reading JSON '))
-const data      = fs.readFileSync(jsonFile, 'utf8')
-const checklist = JSON.parse(data)
-
-console.group()
-console.log(chalk.green('Read'), jsonFile)
-console.groupEnd()
-console.log('')
+util.log('Reading JSON', () => {
+  const data = fs.readFileSync(jsonFile, 'utf8')
+  checklist  = JSON.parse(data)
+  console.log(chalk.green('Read'), jsonFile)
+})
 
 /**
  * Write files
  */
-console.log(chalk.bgYellow.black(' Writing Markdown '))
-console.group()
-
-checklist.items.forEach(function (item) {
-  const category      = toLowerDashed(item.category)
-  const subcategory   = toLowerDashed(item.subcategory)
-  const itemDir       = `${targetDir}/${category}/${subcategory}`
-  const itemFilename  = `_${itemIdToFilename(item.id)}.md`
-
-  // Create folder if needed
-  if (!fs.existsSync(`${itemDir}`)) {
-    fs.mkdirSync(`${itemDir}`, { recursive: true })
-    console.log(chalk.green('Created'), chalk.cyanBright(`${itemDir}/`))
-  }
-
-  // Write Markdown file
-  const itemFile = itemDir + '/' + itemFilename
-  const content = itemToYamlFrontmatter(item)
-  fs.writeFileSync(itemFile, content)
-  console.log(chalk.green('Created'), chalk.dim(itemFile))
+util.log('Writing Markdown', () => {
+  steps.createItemFiles(checklist.items)
 })
-console.groupEnd()
 
 
+steps.createIndexFiles(checklist.items)
