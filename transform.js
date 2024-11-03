@@ -24,6 +24,9 @@ console.log('')
  */
 
 console.log(chalk.bgYellow.black(' Reading JSON '))
+const data      = fs.readFileSync(jsonFile, 'utf8')
+const checklist = JSON.parse(data)
+
 console.group()
 console.log(chalk.green('Read'), jsonFile)
 console.groupEnd()
@@ -34,9 +37,6 @@ console.log('')
  */
 console.log(chalk.bgYellow.black(' Writing Markdown '))
 console.group()
-
-const data      = fs.readFileSync(jsonFile, 'utf8')
-const checklist = JSON.parse(data)
 
 checklist.items.forEach(function (item) {
   const category      = toLowerDashed(item.category)
