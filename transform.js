@@ -4,7 +4,7 @@ const chalk = require('chalk')
 // Helpers
 const setup = require('./transform/setup')
 const itemIdToFilename = require('./transform/item-id-to-filename')
-const itemToYamlFrontmatter = require('./transform/item-to-yaml')
+const itemToYamlFrontmatter = require('./transform/item-to-frontmatter')
 const toLowerDashed = require('./util/to-lower-dashed')
 
 // Configure
