@@ -4,7 +4,8 @@
   "description": "Converts Azure Review Checklists from JSON to directory of markdown files",
   "main": "transform.js",
   "scripts": {
-    "dev": "nodemon ./transform.js"
+    "dev": "nodemon ./transform.js",
+    "transform": "node ./transform.js"
   },
   "author": "Julie Ng",
   "license": "MIT",
