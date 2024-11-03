@@ -25,7 +25,7 @@ console.log('')
 
 console.log(chalk.bgYellow.black(' Reading JSON '))
 console.group()
-console.log('Read', jsonFile)
+console.log(chalk.green('Read'), jsonFile)
 console.groupEnd()
 console.log('')
 
@@ -47,14 +47,14 @@ checklist.items.forEach(function (item) {
   // Create folder if needed
   if (!fs.existsSync(`${itemDir}`)) {
     fs.mkdirSync(`${itemDir}`, { recursive: true })
-    console.log(chalk.cyanBright(`Created ${itemDir}/`))
+    console.log(chalk.green('Created'), chalk.cyanBright(`${itemDir}/`))
   }
 
   // Write Markdown file
   const itemFile = itemDir + '/' + itemFilename
   const content = itemToYamlFrontmatter(item)
   fs.writeFileSync(itemFile, content)
-  console.log(chalk.grey('Created', itemFile))
+  console.log(chalk.green('Created'), chalk.dim(itemFile))
 })
 console.groupEnd()
 
