@@ -3,7 +3,7 @@
 The hardcoded JSON data from [github.com/Azure/review-checklists](https://github.com/Azure/review-checklists) is clunky for building a UI with interactive analysis functionality. Instead, let's convert it into markdown for [Nuxt Content](https://content.nuxt.com/).
 
 > [!IMPORTANT]
-> This is a proof of concept. It is intended as a one-off manual operation, after which the checklists content should be managed in markdown, not the JSON source.
+> This is a **proof of concept**. It is intended as a one-off manual operation, after which the checklists content should be managed in markdown, *not* the JSON source.
 
 ### Advantages 
 
