@@ -18,27 +18,18 @@ const outputDir = path.join(__dirname, '..', config.outputDir)
 module.exports = function (items) {
   const pages = _createList(items)
 
-  util.log('Creating Category Index Pages', () => {
-    _createCategoryPages(pages.categories)
-  })
-
-  util.log('Subcategory Index Pages', () => {
-    _createSubcategoryPages(pages.subcategories)
-  })
+  _createCategoryPages(pages.categories)
+  _createSubcategoryPages(pages.subcategories)
 
   return null
 }
 
 /**
- * Helpers
- */
-
-/**
+ * Create lists of catgories and subcategories
  *
  * @param {Array} items
  * @returns {Object}
  */
-
 function _createList (items) {
   const categories = {}
   const subcategories = {}
@@ -66,28 +57,52 @@ function _createList (items) {
     }
   })
 
+  // console.log(categories)
+  // console.log(subcategories)
+
   return {
     categories,
     subcategories
   }
 }
 
+/**
+ * Create category index.md files
+ *
+ * @param {Object} categories
+ */
 function _createCategoryPages (categories) {
   for (const c in categories) {
+    // Generate markdown
     const content = transformers.categoryToIndexMarkdown(categories[c].title)
+
+    // Write file
     const indexFile = `${outputDir}/${c}/index.md`
     fs.writeFileSync(indexFile, content)
+
+    // Output Filepath
     console.log(chalk.green('Created'), chalk.dim(indexFile))
   }
 }
 
+/**
+ * Create subcategory index.md files
+ *
+ * @param {Object} subcategories
+ */
 function _createSubcategoryPages (subcategories) {
   for (const s in subcategories) {
-    const subcatTitle = subcategories[s]
     const category = subcategories[s].category
-    const content = transformers.categoryToIndexMarkdown(category.title, subcatTitle)
+    const subcategory = subcategories[s]
+
+    // Generate content
+    const content = transformers.categoryToIndexMarkdown(category.title, subcategory.title)
+
+    // Write file
     const indexFile = `${outputDir}/${category.key}/${s}/index.md`
     fs.writeFileSync(indexFile, content)
+
+    // Output Filepath
     console.log(chalk.green('Created'), chalk.dim(indexFile))
   }
 }

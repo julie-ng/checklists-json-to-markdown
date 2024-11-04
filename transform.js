@@ -12,8 +12,7 @@ const targetDir = './output'
 // Global Vars
 let checklist = {}
 
-util.log('Setup',             () => steps.setup(targetDir))
-util.log('Reading JSON',      () => checklist = steps.readJsonFile(jsonFile))
-util.log('Writing Markdown',  () => steps.createItemFiles(checklist.items))
-
-steps.createIndexFiles(checklist.items)
+util.log('Setup',                () => steps.setup(targetDir))
+util.log('Reading JSON',         () => checklist = steps.readJsonFile(jsonFile))
+util.log('Writing Markdown',     () => steps.createItemFiles(checklist.items))
+util.log('Creating Index Files', () => steps.createIndexFiles(checklist.items))
