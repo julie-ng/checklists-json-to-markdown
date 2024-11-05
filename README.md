@@ -14,7 +14,7 @@ The hardcoded JSON data from [github.com/Azure/review-checklists](https://github
 - No need to generate GUIDs (each item uses its file path as unique key)
 - Native integration with Nuxt for [static site generation](https://nuxt.com/docs/getting-started/deployment) with pre-rendering for better performance
 
-## How to use
+## How to use 
 
 ### Configure
 
@@ -39,6 +39,9 @@ module.exports = {
   ]
 }
 ```
+
+> [!NOTE]  
+> The three JSON files included in `./data` are for dev/testing purposes only. Before running locally, download the JSON you need and update the config.
 
 ### Run Scripts
 
