@@ -14,6 +14,48 @@ The hardcoded JSON data from [github.com/Azure/review-checklists](https://github
 - No need to generate GUIDs (each item uses its file path as unique key)
 - Native integration with Nuxt for [static site generation](https://nuxt.com/docs/getting-started/deployment) with pre-rendering for better performance
 
+## How to use
+
+### Configure
+
+Open `./config.js` and adjust configure for each checklist
+- source json file
+- target output subdirectory, e.g. `landing-zone`
+
+Example
+
+```js
+module.exports = {
+  outputDir: './output',
+  checklists: [
+    {
+      sourceFile: './data/alz_checklist.en.json',
+      outputFolderName: 'landing-zone'
+    }, 
+    {
+      sourceFile: './data/multitenancy_checklist.en.json',
+      outputFolderName: 'multi-tenancy'
+    }
+  ]
+}
+```
+
+### Run Scripts
+
+Step 1 - Install dependencies with
+
+```
+npm install
+```
+
+Step 2 - Run scripts to convert JSON to Markdown
+
+```
+npm run transform
+```
+
+In development, to leverage live-reload, use `npm run dev` instead.
+
 ## Features
 
 ### JSON to Markdown
