@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 
 function logGroup (title, cb) {
-  console.group(title)
+  console.group(chalk.bgBlackBright.bold(title))
 
   cb()
 
