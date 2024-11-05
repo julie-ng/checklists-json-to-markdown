@@ -18,7 +18,7 @@ module.exports = function (items, outputDir) {
   _createCategoryPages(pages.categories, outputDir)
   _createSubcategoryPages(pages.subcategories, outputDir)
 
-  return null
+  return pages
 }
 
 /**
