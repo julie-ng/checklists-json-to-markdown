@@ -6,13 +6,23 @@ const transformers = require('./transformers')
 const util         = require('./util')
 
 // Configure
-const jsonFile = './data/alz_checklist.en.json'
+const config    = require('./config')
+const jsonFile  = './data/alz_checklist.en.json'
 const targetDir = './output'
 
-// Global Vars
-let checklist = {}
+// Loop through checklists
+config.checklists.forEach(function (list) {
+  const outputDir = `${targetDir}/${list.outputFolderName}`
+  let checklist = {}
 
-util.log('Setup',                () => steps.setup(targetDir))
-util.log('Reading JSON',         () => checklist = steps.readJsonFile(jsonFile))
-util.log('Writing Markdown',     () => steps.createItemFiles(checklist.items))
-util.log('Creating Index Files', () => steps.createIndexFiles(checklist.items))
+  console.log(chalk.bgBlueBright.black(` Processing ${list.sourceFile} `))
+  console.group()
+
+  util.log('Setup',                () => steps.setup(outputDir))
+  util.log('Reading Source JSON',  () => checklist = steps.readJsonFile(list.sourceFile))
+  util.log('Writing Markdown',     () => steps.createItemFiles(checklist.items, outputDir))
+  util.log('Creating Index Files', () => steps.createIndexFiles(checklist.items, outputDir))
+
+  console.groupEnd()
+})
+

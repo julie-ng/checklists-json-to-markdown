@@ -8,19 +8,20 @@ const chalk = require('chalk')
  * @param {String} targetDir
  */
 module.exports = function (targetDir) {
+  const opts = {
+    recursive: true,
+    force: true
+  }
+
   if (fs.existsSync(targetDir)) {
     try {
-      const opts = {
-        recursive: true,
-        force: true
-      }
 
       console.log(chalk.yellow('Already exists'), targetDir)
 
       fs.rmSync(targetDir, opts)
       console.log(chalk.red('Deleted'), targetDir)
 
-      fs.mkdirSync(targetDir)
+      fs.mkdirSync(targetDir, opts)
       console.log(chalk.green('Created'), targetDir)
     }
 
@@ -29,7 +30,7 @@ module.exports = function (targetDir) {
       throw err
     }
   } else {
-    fs.mkdirSync(targetDir)
+    fs.mkdirSync(targetDir, opts)
     console.log(chalk.green('Created'), targetDir)
   }
 }

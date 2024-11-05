@@ -1,13 +1,12 @@
 const chalk = require('chalk')
 
 function logGroup (title, cb) {
-  console.log(chalk.bgYellow.black(` ${title} `))
-  console.group()
+  console.group(title)
 
   cb()
 
-  console.groupEnd()
   console.log('')
+  console.groupEnd()
 }
 
 module.exports = logGroup

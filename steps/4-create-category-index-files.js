@@ -6,20 +6,17 @@ const config = require('./../config')
 const util = require('./../util')
 const transformers = require('./../transformers')
 
-const outputDir = path.join(__dirname, '..', config.outputDir)
-
-
 /**
  * Writes the markdown files
  *
  * @param {Array} items
  * @returns {null}
  */
-module.exports = function (items) {
+module.exports = function (items, outputDir) {
   const pages = _createList(items)
 
-  _createCategoryPages(pages.categories)
-  _createSubcategoryPages(pages.subcategories)
+  _createCategoryPages(pages.categories, outputDir)
+  _createSubcategoryPages(pages.subcategories, outputDir)
 
   return null
 }
@@ -71,7 +68,7 @@ function _createList (items) {
  *
  * @param {Object} categories
  */
-function _createCategoryPages (categories) {
+function _createCategoryPages (categories, outputDir) {
   for (const c in categories) {
     // Generate markdown
     const content = transformers.categoryToIndexMarkdown(categories[c].title)
@@ -90,7 +87,7 @@ function _createCategoryPages (categories) {
  *
  * @param {Object} subcategories
  */
-function _createSubcategoryPages (subcategories) {
+function _createSubcategoryPages (subcategories, outputDir) {
   for (const s in subcategories) {
     const category = subcategories[s].category
     const subcategory = subcategories[s]

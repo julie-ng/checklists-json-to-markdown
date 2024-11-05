@@ -6,15 +6,13 @@ const config = require('./../config')
 const transformers = require('./../transformers')
 const util = require('./../util')
 
-const outputDir = path.join(__dirname, '..', config.outputDir)
-
 /**
  * Writes the markdown files
  *
  * @param {Array} items
  * @returns {null}
  */
-module.exports = function (items) {
+module.exports = function (items, outputDir) {
   items.forEach(function (item) {
     const category      = util.toLowerDashed(item.category)
     const subcategory   = util.toLowerDashed(item.subcategory)
