@@ -7,7 +7,6 @@ const util         = require('./util')
 
 // Configure
 const config    = require('./config')
-const jsonFile  = './data/alz_checklist.en.json'
 const targetDir = './output'
 
 // Loop through checklists
